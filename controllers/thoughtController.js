@@ -60,6 +60,7 @@ module.exports =
         .catch((err) => res.status(500).json(err));
     },
 
+    //Not complete
     deleteThought(req, res)
     {
         Thought.findOneAndDelete(
