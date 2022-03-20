@@ -23,7 +23,9 @@
   "homepage": "https://github.com/nkrilis/Social-Network-API#readme",
   "dependencies": {
     "express": "^4.17.3",
-    "mongoose": "^6.2.7",
+    "mongoose": "^6.2.7"
+  },
+  "devDependencies": {
     "nodemon": "^2.0.15"
   }
 }
