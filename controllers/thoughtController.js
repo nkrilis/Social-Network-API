@@ -64,7 +64,7 @@ module.exports =
     deleteThought(req, res)
     {
         Thought.findOneAndDelete(
-            { _id: req.par}
+            { _id: req.params.thoughtId }
         )
     }
 
