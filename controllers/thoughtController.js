@@ -63,9 +63,52 @@ module.exports =
     //Not complete
     deleteThought(req, res)
     {
-        Thought.findOneAndDelete(
-            { _id: req.params.thoughtId }
+        Thought.findOneAndDelete({ _id: req.params.thoughtId })
+            .then((thought) => 
+                !thought
+                    ? res.status(404).json({ message: 'No thought with that ID!'})
+                    : User.findOneAndUpdate(
+                        { username: thought.username },
+                        { $pull: { thoughts: req.params.thoughtId }},
+                        { new: true },
+                    )
+                    .then((user) => 
+                        !user   
+                            ? res.status(404).json({ message: 'No user with that username!'})
+                            : res.status(200).json({ message: 'Thought deleted and removed from associated user'}) 
+                    )   
+            )
+            .catch((err) => res.status(500).json(err));
+    },
+
+    createReaction(req, res)
+    {
+        Thought.findOneAndUpdate(
+            { _id: req.params.thoughtId },
+            { $addToSet: { reactions: {username: req.body.username, reactionBody: req.body.reactionBody } } },
+            { new: true, runValidators: true }
+            )
+            .then((thought) => 
+                !thought
+                    ? res.status(404).json({ message: 'No thought found with that ID!'})
+                    : res.status(200).json(thought)
+            )
+            .catch((err) => res.status(500).json(err));
+    },
+
+    deleteReaction(req, res)
+    {
+        Thought.findOneAndUpdate(
+            { _id: req.params.thoughtId },
+            { $pull: { thoughts: req.params.reactionId } },
+            { new: true, runValidators: true }
         )
+        .then((thought) => 
+            !thought
+                ? res.status(404).json({ message: 'No thought found with that ID!'})
+                : res.status(200).json({ message: 'Reaction deleted and removed from associated thought'})
+        )
+        .catch((err) => res.status(500).json(err));
     }
 
 
