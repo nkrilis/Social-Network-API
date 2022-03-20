@@ -1,4 +1,5 @@
-const { User, Thought } = require('../models');
+const User = require('../models/User');
+const Thought = require('../models/Thought');
 
 module.exports = 
 {
@@ -60,7 +61,6 @@ module.exports =
         .catch((err) => res.status(500).json(err));
     },
 
-    //Not complete
     deleteThought(req, res)
     {
         Thought.findOneAndDelete({ _id: req.params.thoughtId })
