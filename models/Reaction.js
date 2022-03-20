@@ -19,7 +19,8 @@ const reactionSchema = new Schema(
             type: Date,
             default: Date.now,
             get: (date) => {
-                date.toUTCString();
+                var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
+                return date.toLocaleDateString("en-US", options);
             },
         },
     },

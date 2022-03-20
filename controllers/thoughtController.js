@@ -5,7 +5,7 @@ module.exports =
 {
     getThoughts(req, res)
     {
-        Thought.find()
+        Thought.find().select('-__v')
             .then((thought) => res.status(200).json(thought))
             .catch((err) => res.status(500).json(err));
     },
@@ -32,7 +32,7 @@ module.exports =
                         { _id: req.body.userId },
                         { $addToSet: { thoughts: thought._id }},
                         { new: true },
-                    )
+                    ).select('-__v')
                     .then((thought) => 
                         !thought
                             ? res.status(404).json({ message: 'No user found with that ID!'})
@@ -74,7 +74,7 @@ module.exports =
                     )
                     .then((user) => 
                         !user   
-                            ? res.status(404).json({ message: 'No user with that username!'})
+                            ? res.status(404).json({ message: 'Thought deleted with no asociated user!'})
                             : res.status(200).json({ message: 'Thought deleted and removed from associated user'}) 
                     )   
             )
@@ -100,7 +100,7 @@ module.exports =
     {
         Thought.findOneAndUpdate(
             { _id: req.params.thoughtId },
-            { $pull: { thoughts: req.params.reactionId } },
+            { $pull: { reactions: { reactionId: req.params.reactionId } } },
             { new: true, runValidators: true }
         )
         .then((thought) => 
