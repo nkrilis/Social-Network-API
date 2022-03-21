@@ -3,13 +3,14 @@ const Thought = require('../models/Thought');
 
 module.exports = 
 {
+    // Get all thoughts query
     getThoughts(req, res)
     {
         Thought.find().select('-__v')
             .then((thought) => res.status(200).json(thought))
             .catch((err) => res.status(500).json(err));
     },
-
+    // Get single thought by ID query
     getSingleThought(req, res)
     {
         Thought.findOne({ _id: req.params.thoughtId })
@@ -21,7 +22,7 @@ module.exports =
             )
             .catch((err) => res.status(500).json(err));
     },
-
+    // Create a new thought with associated user through ID query
     createThought(req, res)
     {
         Thought.create(req.body)
@@ -45,7 +46,7 @@ module.exports =
                 return res.status(500).json(err);
             });
     },
-
+    // Update an existing thiught through ID query
     updateThought(req, res)
     {
         Thought.findOneAndUpdate(
@@ -60,7 +61,7 @@ module.exports =
         )
         .catch((err) => res.status(500).json(err));
     },
-
+    // Delete an exiting thought through ID query
     deleteThought(req, res)
     {
         Thought.findOneAndDelete({ _id: req.params.thoughtId })
@@ -80,7 +81,7 @@ module.exports =
             )
             .catch((err) => res.status(500).json(err));
     },
-
+    // Create a reaction on an existing thought through ID query
     createReaction(req, res)
     {
         Thought.findOneAndUpdate(
@@ -95,7 +96,7 @@ module.exports =
             )
             .catch((err) => res.status(500).json(err));
     },
-
+    // Delete an exiting reaction through ID and remove it from an existing thought through ID query
     deleteReaction(req, res)
     {
         Thought.findOneAndUpdate(

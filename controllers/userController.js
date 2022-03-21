@@ -3,13 +3,14 @@ const Thought = require('../models/Thought');
 
 module.exports = 
 {
+    // Get all users query
     getUsers(req, res)
     {
         User.find().select('-__v')
             .then((users) => res.status(200).json(users))
             .catch((err) => res.status(500).json(err));
     },
-
+    // Get single user through ID query
     getSingleUser(req, res)
     {
         User.findOne({ _id: req.params.userId })
@@ -21,7 +22,7 @@ module.exports =
       )
       .catch((err) => res.status(500).json(err));
     },
-
+    // Create a user query
     createUser(req, res)
     {
         User.create(req.body)
@@ -32,7 +33,7 @@ module.exports =
                 return res.status(500).json(err);
             });
     },
-
+    // Update an existing user through ID query
     updateUser(req, res)
     {
         User.findOneAndUpdate(
@@ -47,7 +48,7 @@ module.exports =
         )
         .catch((err) => res.status(500).json(err));
     },
-
+    // Delete an exiting user through ID and all associated thoughts through ID query
     deleteUser(req, res)
     {
         User.findOneAndDelete({ _id: req.params.userId })
@@ -59,7 +60,7 @@ module.exports =
             .then(() => res.status(200).json({ message: 'User and associated thoughts deleted!' }))
             .catch((err) => res.status(500).json(err));
     },
-
+    // Add a friend to an existing user query
     addFriend(req, res)
     {
         User.findOneAndUpdate(
@@ -74,7 +75,7 @@ module.exports =
         )
         .catch((err) => res.status(500).json(err));
     },
-
+    // Delete an friend from an existing user
     deleteFriend(req, res)
     {
         User.findOneAndUpdate(
