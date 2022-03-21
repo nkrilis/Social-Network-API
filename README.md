@@ -7,6 +7,9 @@
   
   This application is created through the use of `mongoDB`, `express server`, and `mongoose`(an object modeling tool for `mongoDB`). This application gives the user the ability to access and modify a typical social network. There are three schemas associated with this project which are User, Thought, and Reaction. Just like in any social network there are users who are able to post something, then another user can respond/react to that post. This application includes the ability to create, update, and delete users as well as create, update, and delete thoughts (which can or cannot be associated to a user). In addition to this the application also provides the functionallity to add and delete reactions to specified user's thoughts. View the live demo video below...
   
+   ## Click for video tutorial
+  [![E-COMMERCE](https://user-images.githubusercontent.com/22037181/159194933-7b09a1aa-5c08-4370-b743-d22c7846ec75.png)](https://drive.google.com/file/d/1AdIoUsmwvbhGGLtP447Ssvc-qALzrYS_/view?usp=sharing)
+  
   ## Table of Contents
   
   - [Installation](#installation)
